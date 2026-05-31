@@ -5,7 +5,7 @@ export const profile = {
   name: "Ying Chi Chow",
   tagline: "Software Engineer & Problem Solver",
   email: "you@example.com",
-  avatar: null, // set to a URL or path to an image
+  avatar: "/avatar.jpeg",
   location: "Hong Kong",
   openToWork: true,
   skills: ["C++", "Python", "Java", "JavaScript", "Node.js", "React", "SQL", "Firebase", "Android Development", "VB.NET", "jQuery", "REST APIs", "Software Development", "Public Key Cryptography", "HRIS", "VBA"],
