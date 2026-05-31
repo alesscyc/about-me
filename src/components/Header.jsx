@@ -16,6 +16,7 @@ function Header() {
       )}
       <h1>{profile.name}</h1>
       <p className="tagline">{profile.tagline}</p>
+      {profile.location && <p className="location">{profile.location}</p>}
     </header>
   )
 }
