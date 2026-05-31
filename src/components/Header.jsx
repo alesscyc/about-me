@@ -1,11 +1,13 @@
 import { profile } from '../data/profile'
 
+const avatarSrc = profile.avatar ? `${import.meta.env.BASE_URL}${profile.avatar.replace(/^\//, '')}` : null
+
 function Header() {
   return (
     <header className="header">
-      {profile.avatar ? (
+      {avatarSrc ? (
         <img
-          src={profile.avatar}
+          src={avatarSrc}
           alt={profile.name}
           className="header-avatar"
         />
