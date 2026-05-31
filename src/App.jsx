@@ -1,4 +1,5 @@
 import { profile } from './data/profile'
+import Particles from './components/Particles'
 import Header from './components/Header'
 import Bio from './components/Bio'
 import Experience from './components/Experience'
@@ -11,6 +12,7 @@ import './App.css'
 function App() {
   return (
     <div className="app">
+      <Particles />
       <main className="container">
         <Header />
         <Bio />

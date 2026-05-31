@@ -2,6 +2,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 1;
 }
 
 .container {
@@ -9,6 +11,8 @@
   margin: 0 auto;
   padding: 64px 24px;
   flex: 1;
+  position: relative;
+  z-index: 1;
 }
 
 /* Header */
@@ -240,4 +244,6 @@
   font-size: 0.8125rem;
   color: var(--color-text-secondary);
   border-top: 1px solid var(--color-border);
+  position: relative;
+  z-index: 1;
 }
