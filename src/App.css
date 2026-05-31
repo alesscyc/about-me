@@ -22,17 +22,19 @@
 }
 
 .header-avatar {
-  width: 96px;
-  height: 96px;
+  width: 128px;
+  height: 128px;
   border-radius: 50%;
   object-fit: cover;
+  object-position: center 20%;
   margin-bottom: 16px;
   border: 3px solid var(--color-border);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 .header-avatar-placeholder {
-  width: 96px;
-  height: 96px;
+  width: 128px;
+  height: 128px;
   border-radius: 50%;
   margin: 0 auto 16px;
   background: var(--color-border);

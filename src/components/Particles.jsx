@@ -38,10 +38,23 @@ export default function Particles() {
     const ctx = canvas.getContext('2d')
     let animId
     let particles = []
+    const mouse = { x: -9999, y: -9999 }
+    const REPEL_RADIUS = 150
+    const REPEL_FORCE = 0.8
 
     function resize() {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
+    }
+
+    function onMouseMove(e) {
+      mouse.x = e.clientX
+      mouse.y = e.clientY
+    }
+
+    function onMouseLeave() {
+      mouse.x = -9999
+      mouse.y = -9999
     }
 
     function initParticles() {
@@ -49,8 +62,10 @@ export default function Particles() {
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         size: randomBetween(3, 12),
-        speedX: randomBetween(-0.2, 0.2),
-        speedY: randomBetween(-0.15, -0.4),
+        baseSpeedX: randomBetween(-0.2, 0.2),
+        baseSpeedY: randomBetween(-0.15, -0.4),
+        speedX: 0,
+        speedY: 0,
         opacity: randomBetween(0.08, 0.25),
         shape: SHAPES[Math.floor(Math.random() * SHAPES.length)],
         color: COLORS[Math.floor(Math.random() * COLORS.length)],
@@ -63,6 +78,20 @@ export default function Particles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       for (const p of particles) {
+        // Mouse repulsion
+        const dx = p.x - mouse.x
+        const dy = p.y - mouse.y
+        const dist = Math.sqrt(dx * dx + dy * dy)
+
+        let repelX = 0, repelY = 0
+        if (dist < REPEL_RADIUS && dist > 0) {
+          const force = (REPEL_RADIUS - dist) / REPEL_RADIUS * REPEL_FORCE
+          repelX = (dx / dist) * force
+          repelY = (dy / dist) * force
+        }
+
+        p.speedX = p.baseSpeedX + repelX
+        p.speedY = p.baseSpeedY + repelY
         p.x += p.speedX
         p.y += p.speedY
         p.rotation += p.rotationSpeed
@@ -85,6 +114,29 @@ export default function Particles() {
         ctx.restore()
       }
 
+      // Draw faint connections between particles near the cursor
+      const nearby = particles.filter(p => {
+        const dx = p.x - mouse.x
+        const dy = p.y - mouse.y
+        return Math.sqrt(dx * dx + dy * dy) < REPEL_RADIUS * 1.5
+      })
+      for (let i = 0; i < nearby.length; i++) {
+        for (let j = i + 1; j < nearby.length; j++) {
+          const a = nearby[i], b = nearby[j]
+          const dx = a.x - b.x
+          const dy = a.y - b.y
+          const d = Math.sqrt(dx * dx + dy * dy)
+          if (d < 120) {
+            ctx.beginPath()
+            ctx.moveTo(a.x, a.y)
+            ctx.lineTo(b.x, b.y)
+            ctx.strokeStyle = `rgba(37, 99, 235, ${(1 - d / 120) * 0.12})`
+            ctx.lineWidth = 1
+            ctx.stroke()
+          }
+        }
+      }
+
       animId = requestAnimationFrame(animate)
     }
 
@@ -92,14 +144,15 @@ export default function Particles() {
     initParticles()
     animate()
 
-    window.addEventListener('resize', () => {
-      resize()
-      initParticles()
-    })
+    window.addEventListener('resize', () => { resize(); initParticles(); })
+    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mouseleave', onMouseLeave)
 
     return () => {
       cancelAnimationFrame(animId)
       window.removeEventListener('resize', resize)
+      window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('mouseleave', onMouseLeave)
     }
   }, [])
 
