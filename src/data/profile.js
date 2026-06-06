@@ -53,6 +53,8 @@ export const profile = {
       period: "Jul 2022 – Aug 2023",
       type: "Part-time",
       type_zh: "兼職",
+      description: "Using VBA to automate Excel document processing.",
+      description_zh: "使用 VBA 自動化 Excel 文件處理。",
       skills: ["VBA Excel"],
     },
   ],
