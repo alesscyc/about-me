@@ -8,13 +8,13 @@ export const profile = {
   email: "you@example.com",
   avatar: "/avatar.jpeg",
   openToWork: true,
-  skills: ["C++", "Python", "Java", "JavaScript", "Node.js", "React", "SQL", "Firebase", "Android Development", "VB.NET", "jQuery", "REST APIs", "Software Development", "Public Key Cryptography", "HRIS", "VBA"],
+  skills: ["C++", "Python", "Java", "JavaScript", "Node.js", "React", "SQL", "Firebase", "Android Development", "VB.NET", "jQuery", "REST APIs", "Software Development", "Public Key Cryptography", "HRIS", "VBA", "C#", "ASP.NET"],
 
   // ── English ──
   tagline: "Software Engineer & Problem Solver",
   location: "Hong Kong",
   bio: [
-    "Software Engineer currently at Merit Entrepreneur Limited, working with Microsoft SQL Server and jQuery. Previously gained industry experience as a Student Programmer at St. Teresa's Hospital, building internal tools with VB.NET and SQL Server.",
+    "Software Engineer currently at Merit Entrepreneur Limited, building Human Resources Information Systems (HRIS) with jQuery and ASP.NET. Previously gained industry experience as a Student Programmer at St. Teresa's Hospital, building internal tools with VB.NET and SQL Server.",
     "I hold a BSc in Computer Science from City University of Hong Kong (2025) and an Associate of Science in Information Systems Development from UOW College Hong Kong (2023). My project work spans full-stack web applications, Android mobile development, and health tech — from a stock analysis platform with AI-powered trade signals to a Fitbit-integrated health management app.",
     "I'm based in Hong Kong and actively seeking opportunities where I can apply my skills in software development, problem-solving, and building products that make an impact.",
   ],
@@ -23,7 +23,7 @@ export const profile = {
   tagline_zh: "軟體工程師 & 問題解決者",
   location_zh: "香港",
   bio_zh: [
-    "現任 Merit Entrepreneur Limited 軟體工程師，使用 Microsoft SQL Server 和 jQuery 進行開發。此前於聖德肋撒醫院擔任學生程式員，使用 VB.NET 和 SQL Server 建立內部工具。",
+    "現任 Merit Entrepreneur Limited 軟體工程師，使用 jQuery 和 ASP.NET 建構人力資源資訊系統 (HRIS)。此前於聖德肋撒醫院擔任學生程式員，使用 VB.NET 和 SQL Server 建立內部工具。",
     "持有香港城市大學計算機科學學士學位（2025年）及香港伍倫貢學院資訊系統開發副學士學位（2023年）。專案經驗涵蓋全端網頁應用程式、Android 手機開發和健康科技——從具備 AI 交易訊號的股票分析平台，到整合 Fitbit 的健康管理應用程式。",
     "現居香港，積極尋找能運用軟體開發、問題解決能力的機會，期望建立具影響力的產品。",
   ],
@@ -35,7 +35,7 @@ export const profile = {
       period: "Feb 2026 – Present",
       type: "Full-time",
       type_zh: "全職",
-      skills: ["Microsoft SQL Server", "jQuery", "HRIS"],
+      skills: ["jQuery", "Human Resources Information Systems (HRIS)", "JavaScript", "C#", "ASP.NET"],
     },
     {
       role: "Student Programmer",
@@ -95,6 +95,25 @@ export const profile = {
     { name: "Cantonese", level: "Native", level_zh: "母語" },
     { name: "English", level: "Fluent", level_zh: "流利" },
     { name: "Mandarin", level: "Conversational", level_zh: "會話" },
+  ],
+
+  certifications: [
+    {
+      name: "Introduction to Deep Learning & Neural Networks with Keras",
+      issuer: "IBM",
+      date: "Jun 2026",
+      date_zh: "2026年6月",
+      credentialId: "BWHBUSBAS3O4",
+      url: "https://www.coursera.org/account/accomplishments/records/BWHBUSBAS3O4",
+    },
+    {
+      name: "Machine Learning with Python",
+      issuer: "IBM",
+      date: "May 2026",
+      date_zh: "2026年5月",
+      credentialId: "MHK4C1W96TUD",
+      url: "https://www.coursera.org/account/accomplishments/records/MHK4C1W96TUD",
+    },
   ],
 
   socials: [
