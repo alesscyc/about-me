@@ -1,37 +1,89 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useProfile } from '../i18n/useProfile'
 
 function Certifications() {
   const { t } = useTranslation()
   const p = useProfile()
-  const [current, setCurrent] = useState(0)
+  const [current, setCurrent] = useState(1)
   const [isHovered, setIsHovered] = useState(false)
+  const [noTransition, setNoTransition] = useState(false)
+  const trackRef = useRef(null)
+  const transitioningRef = useRef(false)
 
   if (!p.certifications || p.certifications.length === 0) return null
 
-  const total = p.certifications.length
+  const certs = p.certifications
+  const total = certs.length
+  const showNav = total > 1
 
-  const goNext = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % total)
-  }, [total])
+  const jumpToReal = useCallback(
+    (idx) => {
+      if (idx === 0) {
+        setNoTransition(true)
+        setCurrent(total)
+      } else if (idx === total + 1) {
+        setNoTransition(true)
+        setCurrent(1)
+      }
+      transitioningRef.current = false
+    },
+    [total],
+  )
 
-  const goPrev = useCallback(() => {
-    setCurrent((prev) => (prev - 1 + total) % total)
-  }, [total])
+  const navigate = useCallback(
+    (getNext) => {
+      if (transitioningRef.current) return
+      transitioningRef.current = true
+      setNoTransition(false)
+      setCurrent((prev) => getNext(prev))
+    },
+    [],
+  )
 
-  const goTo = useCallback((index) => {
-    setCurrent(index)
-  }, [])
+  const goNext = useCallback(() => navigate((prev) => prev + 1), [navigate])
+  const goPrev = useCallback(() => navigate((prev) => prev - 1), [navigate])
+  const goTo = useCallback(
+    (index) => navigate(() => index + 1),
+    [navigate],
+  )
 
+  // Re-enable transitions after a jump
+  useEffect(() => {
+    if (!noTransition) return
+    const id = requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setNoTransition(false)
+      })
+    })
+    return () => cancelAnimationFrame(id)
+  }, [noTransition])
+
+  // After transition ends, jump to real if on a clone
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track || !showNav) return
+
+    const onTransitionEnd = (e) => {
+      // Only act on the transform transition, not nested transitions
+      if (e.target !== track) return
+      jumpToReal(current)
+    }
+    track.addEventListener('transitionend', onTransitionEnd)
+    return () => track.removeEventListener('transitionend', onTransitionEnd)
+  }, [showNav, current, jumpToReal])
+
+  // Auto-advance
   useEffect(() => {
     if (total <= 1 || isHovered) return
-
     const interval = setInterval(goNext, 5000)
     return () => clearInterval(interval)
   }, [total, isHovered, goNext])
 
-  const showNav = total > 1
+  // Build cloned list: [clone of last, ...real, clone of first]
+  const slides = showNav
+    ? [certs[total - 1], ...certs, certs[0]]
+    : certs
 
   return (
     <section className="section">
@@ -43,10 +95,14 @@ function Certifications() {
       >
         <div className="cert-carousel">
           <div
+            ref={trackRef}
             className="cert-track"
-            style={{ transform: `translateX(-${current * 100}%)` }}
+            style={{
+              transform: `translateX(-${current * 100}%)`,
+              transition: noTransition ? 'none' : undefined,
+            }}
           >
-            {p.certifications.map((cert, i) => (
+            {slides.map((cert, i) => (
               <div key={i} className="cert-item">
                 <h3>
                   {cert.url ? (
@@ -89,11 +145,11 @@ function Certifications() {
 
         {showNav && (
           <div className="cert-dots">
-            {p.certifications.map((_, i) => (
+            {certs.map((_, i) => (
               <button
                 key={i}
                 type="button"
-                className={`cert-dot ${i === current ? 'active' : ''}`}
+                className={`cert-dot ${(current - 1 + total) % total === i ? 'active' : ''}`}
                 onClick={() => goTo(i)}
                 aria-label={`Go to certification ${i + 1}`}
               />
