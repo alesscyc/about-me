@@ -1,13 +1,17 @@
-import { profile } from '../data/profile'
+import { useTranslation } from 'react-i18next'
+import { useProfile } from '../i18n/useProfile'
 
 function Experience() {
-  if (!profile.experience || profile.experience.length === 0) return null
+  const { t } = useTranslation()
+  const p = useProfile()
+
+  if (!p.experience || p.experience.length === 0) return null
 
   return (
     <section className="section">
-      <h2 className="section-title">Experience</h2>
+      <h2 className="section-title">{t('experience')}</h2>
       <div className="timeline">
-        {profile.experience.map((item, i) => (
+        {p.experience.map((item, i) => (
           <div key={i} className="timeline-item">
             <div className="timeline-dot" />
             <div className="timeline-content">

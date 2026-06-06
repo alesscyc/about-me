@@ -1,24 +1,19 @@
-import { profile } from '../data/profile'
-
-const avatarSrc = profile.avatar ? `${import.meta.env.BASE_URL}${profile.avatar.replace(/^\//, '')}` : null
+import { useProfile } from '../i18n/useProfile'
 
 function Header() {
+  const p = useProfile()
+  const avatarSrc = p.avatar ? `${import.meta.env.BASE_URL}${p.avatar.replace(/^\//, '')}` : null
+
   return (
     <header className="header">
       {avatarSrc ? (
-        <img
-          src={avatarSrc}
-          alt={profile.name}
-          className="header-avatar"
-        />
+        <img src={avatarSrc} alt={p.name} className="header-avatar" />
       ) : (
-        <div className="header-avatar-placeholder" aria-hidden="true">
-          ?
-        </div>
+        <div className="header-avatar-placeholder" aria-hidden="true">?</div>
       )}
-      <h1>{profile.name}</h1>
-      <p className="tagline">{profile.tagline}</p>
-      {profile.location && <p className="location">{profile.location}</p>}
+      <h1>{p.name}</h1>
+      <p className="tagline">{p.tagline}</p>
+      {p.location && <p className="location">{p.location}</p>}
     </header>
   )
 }

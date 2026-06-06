@@ -1,13 +1,17 @@
-import { profile } from '../data/profile'
+import { useTranslation } from 'react-i18next'
+import { useProfile } from '../i18n/useProfile'
 
 function SocialLinks() {
-  if (!profile.socials || profile.socials.length === 0) return null
+  const { t } = useTranslation()
+  const p = useProfile()
+
+  if (!p.socials || p.socials.length === 0) return null
 
   return (
     <section className="section">
-      <h2 className="section-title">Connect</h2>
+      <h2 className="section-title">{t('connect')}</h2>
       <div className="social-links">
-        {profile.socials.map((social, i) => (
+        {p.socials.map((social, i) => (
           <a
             key={i}
             href={social.url}

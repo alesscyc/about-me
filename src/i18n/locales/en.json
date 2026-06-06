@@ -1,0 +1,12 @@
+{
+  "about": "About",
+  "experience": "Experience",
+  "education": "Education",
+  "skills": "Skills",
+  "languages": "Languages",
+  "projects": "Projects",
+  "connect": "Connect",
+  "footer": "Built with Vite & React.",
+  "openToWork": "Open to Work",
+  "switchLang": "中文"
+}
