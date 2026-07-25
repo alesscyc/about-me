@@ -75,8 +75,8 @@ export const profile = {
   projects: [
     {
       name: "Stock Analysis Platform",
-      description: "A full-stack web application using React.js, Node.js, and Python that provides stock data visualization with AI-driven buy/sell recommendations. Features candlestick charts and a Random Forest ML model analyzing technical indicators.",
-      description_zh: "使用 React.js、Node.js 和 Python 的全端網頁應用程式，提供股票資料視覺化及 AI 驅動的買賣建議。具備 K 線圖和使用隨機森林機器學習模型分析技術指標。",
+      description: "A full-stack web application using React.js, Node.js, and Python with candlestick and volume charts, Random Forest trade signals, and technical indicators. Charting tools include a persistent Price Pattern toggle for Double Bottom and Double Top overlays, swing zones, and per-symbol saved trend lines, horizontal lines, rays, rectangles, and price ranges.",
+      description_zh: "使用 React.js、Node.js 和 Python 的全端網頁應用程式，提供 K 線圖與成交量圖、隨機森林交易訊號及技術指標。圖表工具包括可持久保存的 Price Pattern 切換功能，顯示雙底與雙頂疊加圖層、擺動區域，以及按股票代號儲存的趨勢線、水平線、射線、矩形和價格範圍。",
       url: "https://github.com/alesscyc/stock-platform",
     },
     {
